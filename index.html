@@ -3,221 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERT Odisha | Education for All</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>ERT Odisha | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #0056b3;
-            --secondary: #007bff;
-            --accent: #ffc107;
-            --light: #f8f9fa;
-            --dark: #343a40;
-            --text: #212529;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text);
-            background-color: #f0f2f5;
-        }
-
-        /* Navigation */
+        /* Navigation Bar */
         nav {
-            background: white;
-            padding: 1rem 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            padding: 15px 5%;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+        .nav-logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo-area img {
+            height: 50px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
         }
 
         .nav-links a {
-            margin-left: 20px;
             text-decoration: none;
-            color: var(--dark);
-            font-weight: 600;
-            transition: 0.3s;
+            color: #555;
+            font-weight: 500;
+            font-size: 15px;
         }
 
-        .nav-links a:hover {
-            color: var(--primary);
+        .btn-red {
+            background: #ff0000;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 60px 5% text-align: center;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 10%;
+            background: #fff;
+            min-height: 80vh;
         }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        .hero-content {
+            flex: 1;
+            max-width: 500px;
         }
 
-        .hero p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: #5bc0de; /* Light Blue */
+            line-height: 1.2;
+            margin-bottom: 20px;
         }
 
-        /* Main Container */
-        .container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .section-title h2 {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .section-title p {
+        .hero-content p {
             color: #666;
-            margin-top: 5px;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
-        /* Class Grid */
-        .class-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-        }
-
-        .class-card {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            text-decoration: none;
-            color: var(--dark);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            border-bottom: 4px solid transparent;
-        }
-
-        .class-card:hover {
-            transform: translateY(-10px);
-            border-bottom: 4px solid var(--accent);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .class-card h3 {
-            font-size: 1.4rem;
-            margin-bottom: 10px;
-        }
-
-        .class-card span {
-            display: inline-block;
-            background: #e7f1ff;
-            color: var(--primary);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
+        .btn-green {
+            background: #5cb85c;
             color: white;
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 60px;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            display: inline-block;
+            transition: 0.3s;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 1.8rem; }
-            .class-grid { grid-template-columns: 1fr 1fr; }
-            .class-card { padding: 15px; }
+        .btn-green:hover {
+            background: #4cae4c;
+            box-shadow: 0 4px 15px rgba(92, 184, 92, 0.4);
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .hero-image img {
+            max-width: 400px;
+            width: 100%;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; }
+            .hero { flex-direction: column-reverse; text-align: center; padding: 40px 5%; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { font-size: 13px; gap: 10px; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="#" class="logo">ERT Odisha</a>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="about.html">About</a>
+        <div class="nav-logo-area">
+            <img src="logo.png" alt="ERT Logo">
         </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="#">Students Gallary ▾</a></li>
+            <li><a href="#">Main Gallery ▾</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#" class="btn-red">Learn more</a></li>
+        </ul>
     </nav>
 
-    <header class="hero">
-        <h1>ertodisha.in</h1>
-        <p>Education for all... (ଶିକ୍ଷା ସମସ୍ତଙ୍କ ପାଇଁ)</p>
-    </header>
-
-    <div class="container">
-        <div class="section-title">
-            <h2>Students' Gallery (Game Zone)</h2>
-            <p>ପିଲାମାନେ ଏଠାରେ ନିଜ ଶ୍ରେଣୀର ପ୍ରଶ୍ନ ଉତ୍ତର ଖେଳ ଖେଳିପାରିବେ</p>
+    <section class="hero">
+        <div class="hero-content">
+            <h1>We Care About <br> Our Students</h1>
+            <p>We the e-Resource Team of Odisha work unconditionally to improve learning methods and materials.</p>
+            <a href="#" class="btn-green">Learn more »</a>
         </div>
-
-        <div class="class-grid">
-            <a href="class1.html" class="class-card">
-                <h3>ପ୍ରଥମ ଶ୍ରେଣୀ</h3>
-                <span>Class 1</span>
-            </a>
-            <a href="class2.html" class="class-card">
-                <h3>ଦ୍ଵିତୀୟ ଶ୍ରେଣୀ</h3>
-                <span>Class 2</span>
-            </a>
-            <a href="class3.html" class="class-card">
-                <h3>ତୃତୀୟ ଶ୍ରେଣୀ</h3>
-                <span>Class 3</span>
-            </a>
-            <a href="class4.html" class="class-card">
-                <h3>ଚତୁର୍ଥ ଶ୍ରେଣୀ</h3>
-                <span>Class 4</span>
-            </a>
-            <a href="class5.html" class="class-card">
-                <h3>ପଞ୍ଚମ ଶ୍ରେଣୀ</h3>
-                <span>Class 5</span>
-            </a>
-            <a href="class6.html" class="class-card">
-                <h3>ଷଷ୍ଠ ଶ୍ରେଣୀ</h3>
-                <span>Class 6</span>
-            </a>
-            <a href="class7.html" class="class-card">
-                <h3>ସପ୍ତମ ଶ୍ରେଣୀ</h3>
-                <span>Class 7</span>
-            </a>
-            <a href="class8.html" class="class-card">
-                <h3>ଅଷ୍ଟମ ଶ୍ରେଣୀ</h3>
-                <span>Class 8</span>
-            </a>
+        <div class="hero-image">
+            <img src="e-rt-logo.png" alt="e-Resource Team Odisha Logo">
         </div>
-    </div>
-
-    <footer>
-        <p>&copy; 2026 ertodisha.in | Powered by e-Resource Team Odisha</p>
-    </footer>
+    </section>
 
 </body>
 </html>
