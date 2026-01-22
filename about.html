@@ -11,7 +11,7 @@
             --ert-red: #ff4b2b;
             --bg-light: #f0f4f8;
             --blue-teal: linear-gradient(135deg, #00c6ff, #0072ff);
-            --red-pink: linear-gradient(135deg, #ff5f6d, #ffc371);
+            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b); /* Match logo red theme */
             --glass: rgba(255, 255, 255, 0.85);
         }
 
@@ -44,13 +44,21 @@
         .nav-links { display: flex; list-style: none; gap: 25px; }
         .nav-links a { text-decoration: none; color: #555; font-size: 14px; font-weight: 500; }
 
+        /* Updated Red Gradient Button */
         .btn-red {
             background: var(--red-pink);
             color: white !important;
-            padding: 8px 22px;
+            padding: 10px 25px;
             border-radius: 50px;
             font-weight: 600;
-            box-shadow: 0 4px 10px rgba(255, 95, 109, 0.2);
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-red:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 75, 43, 0.4);
         }
 
         /* --- Main About Container --- */
@@ -82,7 +90,7 @@
             color: #1a4d94;
             line-height: 1.2;
             margin-bottom: 25px;
-            border-left: 8px solid #ff4b2b;
+            border-left: 8px solid var(--ert-red);
             padding-left: 20px;
         }
 
@@ -133,12 +141,12 @@
 
         .img-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             border-radius: 15px;
         }
 
-        /* --- Feature Labels (Aesthetic Gradient Style) --- */
+        /* --- Feature Labels --- */
         .labels {
             display: flex;
             gap: 15px;
@@ -168,7 +176,7 @@
 
     <nav>
         <a href="index.html" class="logo-nav">
-            <img src="images/logo.png" alt="Logo"> ERT Odisha
+            <img src="images/logo.jpg" alt="Logo"> ERT Odisha
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -199,7 +207,7 @@
                 </div>
 
                 <div class="shield-area">
-                    <img src="images/logo.png" alt="ERT Shield">
+                    <img src="images/logo.jpg" alt="ERT Shield">
                 </div>
             </div>
 
