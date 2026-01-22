@@ -60,6 +60,22 @@
             transition: 0.3s;
         }
 
+        /* --- MOBILE MENU TOGGLE --- */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--ert-blue);
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
         /* --- HERO SECTION --- */
         .hero-wrapper { padding: 40px 8%; }
         .hero-container {
@@ -188,28 +204,40 @@
             color: #aaa;
         }
 
-        /* --- MOBILE FRIENDLY MEDIA QUERIES --- */
-        @media (max-width: 1024px) {
-            nav { padding: 15px 4%; }
-            .hero-wrapper { padding: 20px 4%; }
-            .hero-container { padding: 40px; }
-        }
-
+        /* --- RESPONSIVE MEDIA QUERIES --- */
         @media (max-width: 900px) {
-            .hero-container { flex-direction: column; text-align: center; }
-            .hero-left h1 { font-size: 2.2rem; border-left: none; padding-left: 0; }
+            nav { padding: 15px 5%; }
+            .menu-toggle { display: flex; }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: white;
+                padding: 30px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+                gap: 20px;
+                text-align: center;
+                border-top: 1px solid #eee;
+            }
+
+            .nav-links.active { display: flex; }
+
+            .hero-container { flex-direction: column; text-align: center; padding: 40px 20px; border-radius: 25px; }
+            .hero-left h1 { font-size: 2.1rem; border-left: none; padding-left: 0; }
             .hero-left p { margin: 0 auto 30px; }
-            .hero-center-shield { order: -1; margin-bottom: 20px; }
-            .hero-center-shield img { width: 140px; }
+            .hero-center-shield { order: -1; margin-bottom: 10px; }
+            .hero-center-shield img { width: 130px; }
             .hero-right-card { width: 100%; }
-            .nav-links { display: none; } /* Hide regular links on small mobile */
+            .hero-wrapper { padding: 20px 5%; }
         }
 
         @media (max-width: 480px) {
+            .grid { grid-template-columns: 1fr; }
             .hero-left h1 { font-size: 1.8rem; }
-            .grid { grid-template-columns: 1fr; } /* Single column on very small screens */
-            .select-section { padding: 20px 4% 60px; }
-            .hero-container { border-radius: 20px; padding: 30px 20px; }
         }
     </style>
 </head>
@@ -219,12 +247,17 @@
         <a href="index.html" class="logo-nav">
             <img src="images/logo.png" alt="ERT"> ERT Odisha
         </a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="team.html">Team</a></li>
             <li><a href="contact.html" class="btn-red">Contact Us</a></li>
         </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
     <div class="hero-wrapper">
@@ -270,7 +303,6 @@
                 <h3>ଚତୁର୍ଥ ଶ୍ରେଣୀ</h3>
                 <div class="open-btn">Open Class</div>
             </a>
-
             <a href="class5.html" class="class-card red-card">
                 <div class="class-icon red-icon">5</div>
                 <h3>ପଞ୍ଚମ ଶ୍ରେଣୀ</h3>
@@ -322,6 +354,22 @@
             &copy; 2026 ERT Odisha | Education for All | Built with ❤️ for Students
         </div>
     </footer>
+
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('#nav-links');
+
+        menu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
