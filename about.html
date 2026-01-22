@@ -11,146 +11,49 @@
             --ert-red: #ff4b2b;
             --bg-light: #f0f4f8;
             --blue-teal: linear-gradient(135deg, #00c6ff, #0072ff);
-            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b); /* Professional Red Gradient */
+            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b);
             --glass: rgba(255, 255, 255, 0.85);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background: linear-gradient(135deg, #f5f7fa 0%, #d6e4f0 100%); min-height: 100vh; color: #333; }
 
-        body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #d6e4f0 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-
-        /* --- Navigation --- */
+        /* --- STICKY HEADER --- */
         nav {
-            background: #fff;
-            padding: 15px 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            background: #fff; padding: 15px 8%; display: flex; justify-content: space-between;
+            align-items: center; box-shadow: 0 4px 12px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 1000;
         }
-
         .logo-nav { display: flex; align-items: center; gap: 10px; text-decoration: none; color: #1a4d94; font-weight: 700; }
         .logo-nav img { height: 40px; }
+        .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #555; font-size: 14px; font-weight: 500; transition: 0.3s; }
+        .btn-red { background: var(--red-pink); color: white !important; padding: 10px 25px; border-radius: 50px; font-weight: 600; box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3); border: none; }
 
-        .nav-links { display: flex; list-style: none; gap: 25px; }
-        .nav-links a { text-decoration: none; color: #555; font-size: 14px; font-weight: 500; }
+        /* --- MOBILE MENU TOGGLE --- */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--ert-blue); border-radius: 5px; }
 
-        /* Aesthetic Red Gradient Button */
-        .btn-red {
-            background: var(--red-pink);
-            color: white !important;
-            padding: 10px 25px;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
-            border: none;
-            cursor: pointer;
-            transition: 0.3s;
-        }
+        .wrapper { padding: 60px 8%; }
+        .main-container { background: white; border-radius: 40px; padding: 60px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 50px; }
+        
+        .top-content { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+        .text-area h1 { font-size: 3rem; color: #1a4d94; margin-bottom: 25px; border-left: 8px solid var(--ert-red); padding-left: 20px; }
+        .text-area p { color: #666; font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; }
+        .shield-area img { width: 180px; filter: drop-shadow(0 20px 30px rgba(0, 77, 148, 0.2)); animation: floating 4s ease-in-out infinite; }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
-        .btn-red:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 75, 43, 0.4);
-        }
-
-        /* --- Main About Container --- */
-        .wrapper {
-            padding: 60px 8%;
-        }
-
-        .main-container {
-            background: white;
-            border-radius: 40px;
-            padding: 60px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-
-        /* --- Top Section --- */
-        .top-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-        }
-
-        .text-area { flex: 1.2; }
-        .text-area h1 {
-            font-size: 3rem;
-            color: #1a4d94;
-            line-height: 1.2;
-            margin-bottom: 25px;
-            border-left: 8px solid var(--ert-red);
-            padding-left: 20px;
-        }
-
-        .text-area p {
-            color: #666;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .shield-area {
-            flex: 0.8;
-            display: flex;
-            justify-content: center;
-        }
-
-        /* Shield Logo Shadow and Animation */
-        .shield-area img {
-            width: 180px;
-            filter: drop-shadow(0 20px 30px rgba(0, 77, 148, 0.2));
-            animation: floating 4s ease-in-out infinite;
-        }
-
-        @keyframes floating {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        /* --- Image Grid Section --- */
-        .image-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-
-        .img-card {
-            background: var(--glass);
-            padding: 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.5);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: 0.4s;
-        }
-
-        .img-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
-        }
-
-        .img-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            border-radius: 15px;
-        }
+        .image-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .img-card { background: var(--glass); padding: 10px; border-radius: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .img-card img { width: 100%; height: 220px; object-fit: cover; border-radius: 15px; }
 
         footer { text-align: center; padding: 40px; color: #888; font-size: 14px; }
 
         @media (max-width: 900px) {
+            nav { padding: 15px 5%; }
+            .menu-toggle { display: flex; }
+            .nav-links { display: none; flex-direction: column; position: absolute; top: 70px; left: 0; width: 100%; background: white; padding: 30px; gap: 20px; box-shadow: 0 10px 15px rgba(0,0,0,0.05); }
+            .nav-links.active { display: flex; }
+            .main-container { padding: 40px 20px; border-radius: 25px; }
             .top-content { flex-direction: column; text-align: center; }
             .text-area h1 { font-size: 2.2rem; border: none; padding: 0; }
             .image-grid { grid-template-columns: 1fr; }
@@ -158,56 +61,38 @@
     </style>
 </head>
 <body>
-
     <nav>
-        <a href="index.html" class="logo-nav">
-            <img src="images/logo.png" alt="Logo"> ERT Odisha
-        </a>
-        <ul class="nav-links">
+        <a href="index.html" class="logo-nav"><img src="images/logo.png" alt="Logo"> ERT Odisha</a>
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="#">Gallery</a></li>
             <li><a href="about.html" style="color:var(--ert-blue);">About</a></li>
-            <li><a href="#" class="btn-red">Contact Us</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="contact.html" class="btn-red">Contact Us</a></li>
         </ul>
+        <div class="menu-toggle" id="mobile-menu"><span></span><span></span><span></span></div>
     </nav>
 
     <div class="wrapper">
         <div class="main-container">
-            
             <div class="top-content">
                 <div class="text-area">
                     <h1>Working For Students <br> Over 3 Years.</h1>
-                    <p>
-                        <strong>Odisha e-Resource Team</strong> is a leading education oriented team, working unconditionally to improve learning methods for students and teachers across Odisha.
-                    </p>
-                    <p>
-                        We create high-quality digital materials to make classroom learning easier, more creative, and more effective for our students.
-                    </p>
+                    <p><strong>Odisha e-Resource Team</strong> is a leading education oriented team, working unconditionally to improve learning methods for students and teachers across Odisha.</p>
                 </div>
-
-                <div class="shield-area">
-                    <img src="images/logo.png" alt="ERT Shield">
-                </div>
+                <div class="shield-area"><img src="images/logo.png" alt="ERT Shield"></div>
             </div>
-
             <div class="image-grid">
-                <div class="img-card">
-                    <img src="images/ert1.jpg" alt="Team Activity 1">
-                </div>
-                <div class="img-card">
-                    <img src="images/ert2.jpg" alt="Team Activity 2">
-                </div>
-                <div class="img-card">
-                    <img src="images/ert3.jpg" alt="Team Activity 3">
-                </div>
+                <div class="img-card"><img src="images/ert1.jpg" alt="Team 1"></div>
+                <div class="img-card"><img src="images/ert2.jpg" alt="Team 2"></div>
+                <div class="img-card"><img src="images/ert3.jpg" alt="Team 3"></div>
             </div>
-
         </div>
     </div>
-
-    <footer>
-        &copy; 2026 ERT Odisha | Education for All
-    </footer>
-
+    <footer>&copy; 2026 ERT Odisha | Education for All</footer>
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('#nav-links');
+        menu.addEventListener('click', () => { navLinks.classList.toggle('active'); });
+    </script>
 </body>
 </html>
