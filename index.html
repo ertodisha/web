@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ERT Odisha | Digital Learning Hub</title>
+    <title>ERT Odisha | Aesthetic Learning Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --ert-blue: #1a4d94;
             --ert-red: #d93025;
-            --glass: rgba(255, 255, 255, 0.85);
+            --glass: rgba(255, 255, 255, 0.7);
         }
 
         * {
@@ -20,272 +20,252 @@
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
             min-height: 100vh;
             color: #333;
-            overflow-x: hidden;
         }
 
         /* --- Navigation --- */
         nav {
             background: white;
-            padding: 15px 8%;
+            padding: 12px 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--ert-blue);
-            text-decoration: none;
-        }
+        .logo-nav { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ert-blue); font-weight: 700; }
+        .logo-nav img { height: 40px; }
 
-        .logo-area img { height: 50px; }
+        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #444; font-size: 14px; font-weight: 500; }
 
-        .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #444; font-weight: 600; font-size: 14px; transition: 0.3s; }
-        .nav-links a:hover { color: var(--ert-blue); }
-
-        .btn-red-nav {
-            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+        .btn-top {
+            background: var(--ert-red);
             color: white !important;
-            padding: 10px 25px;
+            padding: 8px 18px;
             border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
-            border: none;
-            cursor: pointer;
+            font-weight: 600;
         }
 
-        /* --- Hero Section --- */
+        /* --- Aesthetic Hero Section --- */
         .hero {
-            padding: 80px 8% 60px;
+            padding: 60px 8%;
             display: flex;
             align-items: center;
-            gap: 50px;
+            justify-content: space-between;
+            gap: 40px;
         }
 
-        .hero-text { flex: 1; }
-        .hero-text h1 {
-            font-size: 3.8rem;
+        .hero-left { flex: 1.2; }
+        .hero-left h1 {
+            font-size: 3.2rem;
             color: var(--ert-blue);
-            line-height: 1.1;
-            margin-bottom: 25px;
-            border-left: 10px solid var(--ert-red);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            border-left: 8px solid var(--ert-red);
             padding-left: 20px;
         }
 
-        .hero-text p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 35px;
-            max-width: 550px;
-            line-height: 1.6;
+        .hero-left p { font-size: 1.1rem; color: #555; margin-bottom: 30px; line-height: 1.6; }
+
+        .hero-center-logo {
+            flex: 0.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .hero-card {
-            flex: 0.8;
+        /* Floating Logo Effect */
+        .hero-center-logo img {
+            width: 180px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero-right-card {
+            flex: 1;
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 40px;
-            border-radius: 40px;
-            border: 1px solid rgba(255,255,255,0.4);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-            text-align: center;
+            backdrop-filter: blur(12px);
+            padding: 35px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
         }
 
-        .hero-card h2 { color: var(--ert-blue); margin-bottom: 15px; font-size: 1.8rem; }
+        .btn-green { background: #4CAF50; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; display: inline-block; }
 
-        .btn-main {
-            background: linear-gradient(45deg, #00b4db, #0083b0);
-            color: white;
-            padding: 16px 45px;
-            border-radius: 50px;
-            text-decoration: none;
-            display: inline-block;
-            font-weight: 700;
-            box-shadow: 0 6px 20px rgba(0, 131, 176, 0.3);
-            transition: 0.4s;
-        }
-        .btn-main:hover { transform: scale(1.05) translateY(-3px); }
-
-        /* --- Class Section --- */
-        .class-section { padding: 80px 8%; text-align: center; background: rgba(255,255,255,0.3); }
-        .class-section h2 { font-size: 2.8rem; color: var(--ert-blue); margin-bottom: 15px; }
-        .class-section p { color: #666; margin-bottom: 50px; }
+        /* --- Colorful Class Grid --- */
+        .class-section { padding: 40px 8% 80px; text-align: center; }
+        .class-section h2 { font-size: 2.2rem; color: var(--ert-blue); margin-bottom: 40px; }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
         }
 
         .card {
-            background: white;
-            padding: 35px 25px;
-            border-radius: 30px;
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            padding: 30px;
+            border-radius: 25px;
             text-decoration: none;
             color: #333;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            transition: 0.4s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-bottom: 6px solid transparent;
+            border: 1px solid rgba(255,255,255,0.4);
+            position: relative;
+            overflow: hidden;
         }
 
-        .card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-        }
-
-        .card-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 22px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            font-size: 28px;
-            font-weight: 700;
-            color: white;
-            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Gradient Icons */
-        .icon-1 { background: linear-gradient(45deg, #4facfe, #00f2fe); }
-        .icon-2 { background: linear-gradient(45deg, #43e97b, #38f9d7); }
-        .icon-3 { background: linear-gradient(45deg, #fa709a, #fee140); }
-        .icon-4 { background: linear-gradient(45deg, #667eea, #764ba2); }
-        .icon-5 { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
-        .icon-6 { background: linear-gradient(45deg, #f093fb, #f5576c); }
-        .icon-7 { background: linear-gradient(45deg, #f6d365, #fda085); }
-        .icon-8 { background: linear-gradient(45deg, #ff0844, #ffb199); }
-
-        .card h3 { margin-bottom: 12px; font-size: 1.3rem; font-weight: 600; }
-
-        .btn-sm {
-            margin-top: 10px;
-            font-size: 13px;
-            padding: 8px 22px;
-            border-radius: 15px;
-            background: #f8f9fa;
-            color: #666;
-            font-weight: 700;
+        .card::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 5px;
+            background: var(--ert-blue);
+            opacity: 0;
             transition: 0.3s;
         }
 
-        .card:hover .btn-sm {
-            background: var(--ert-blue);
-            color: white;
+        .card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+        .card:hover::before { opacity: 1; }
+
+        /* Icon Styling with Gradients */
+        .icon-box {
+            width: 60px; height: 60px;
+            border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px; font-weight: 700; color: white;
+            margin-bottom: 15px;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.1);
         }
 
-        footer { 
+        /* Specific Gradient Buttons */
+        .g-1 { background: linear-gradient(45deg, #2196F3, #00BCD4); }
+        .g-2 { background: linear-gradient(45deg, #4CAF50, #8BC34A); }
+        .g-3 { background: linear-gradient(45deg, #FF9800, #FFC107); }
+        .g-4 { background: linear-gradient(45deg, #9C27B0, #E91E63); }
+        .g-5 { background: linear-gradient(45deg, #f857a6, #ff5858); }
+        .g-6 { background: linear-gradient(45deg, #11998e, #38ef7d); }
+        .g-7 { background: linear-gradient(45deg, #FC466B, #3F5EFB); }
+        .g-8 { background: linear-gradient(45deg, #ee0979, #ff6a00); }
+
+        .btn-class {
+            margin-top: 15px;
             background: #fff;
-            text-align: center; 
-            padding: 50px; 
-            color: #777; 
-            font-size: 15px; 
-            border-top: 1px solid #eee;
+            padding: 8px 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--ert-blue);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: 0.3s;
         }
 
-        /* --- Mobile Responsiveness --- */
+        .card:hover .btn-class { background: var(--ert-blue); color: white; }
+
+        footer { padding: 40px; text-align: center; color: #777; font-size: 14px; }
+
+        /* Responsive Mobile */
         @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 40px; }
-            .hero-text h1 { font-size: 2.8rem; border: none; padding: 0; }
-            .hero-text p { margin: 0 auto 30px; }
-            .nav-links { display: none; } /* Simplified for mobile */
+            .hero { flex-direction: column; text-align: center; }
+            .hero-left h1 { font-size: 2.2rem; border: none; padding: 0; }
+            .hero-center-logo img { width: 120px; margin: 20px 0; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <a href="index.html" class="logo-area">
-            <img src="logo.png" alt="ERT Logo"> 
-            <span>ERT Odisha</span>
+        <a href="index.html" class="logo-nav">
+            <img src="logo.png" alt="Logo"> ERT Odisha
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="#classes">Classes</a></li>
-            <li><a href="#">Gallery</a></li>
-            <li><a href="#">Team</a></li>
-            <li><a href="#" class="btn-red-nav">Contact Us</a></li>
+            <li><a href="#">Gallary</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#" class="btn-top">Learn more</a></li>
         </ul>
     </nav>
 
     <header class="hero">
-        <div class="hero-text">
-            <h1>Digital Lessons <br>For Every Child</h1>
-            <p>We provide unconditionally high-quality e-resources to help the students of Odisha learn better and faster.</p>
-            <a href="#classes" class="btn-main">Start Learning »</a>
+        <div class="hero-left">
+            <h1>We Care About <br> Our Students</h1>
+            <p>Empowering Odisha with quality digital resources for a brighter future.</p>
+            <a href="#" class="btn-green">Get Started »</a>
         </div>
-        <div class="hero-card">
-            <h2>E-Resource Team</h2>
-            <p>Access videos, PDF notes, and interactive games for Class 1 to 8.</p>
-            <a href="#" class="btn-red-nav">Learn More</a>
+
+        <div class="hero-center-logo">
+            <img src="logo.png" alt="ERT Shield Logo">
+        </div>
+
+        <div class="hero-right-card">
+            <h3>ERT Education</h3>
+            <p>Access class-wise materials, games, and videos unconditionally.</p>
+            <a href="#" class="btn-top">Explore All</a>
         </div>
     </header>
 
-    <section class="class-section" id="classes">
-        <h2>Explore Your Class</h2>
-        <p>Select your class to start exploring subjects and games.</p>
-        
+    <section class="class-section">
+        <h2>Select Your Class</h2>
         <div class="grid">
             <a href="class1.html" class="card">
-                <div class="card-icon icon-1">1</div>
+                <div class="icon-box g-1">1</div>
                 <h3>ପ୍ରଥମ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class2.html" class="card">
-                <div class="card-icon icon-2">2</div>
+                <div class="icon-box g-2">2</div>
                 <h3>ଦ୍ଵିତୀୟ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class3.html" class="card">
-                <div class="card-icon icon-3">3</div>
+                <div class="icon-box g-3">3</div>
                 <h3>ତୃତୀୟ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class4.html" class="card">
-                <div class="card-icon icon-4">4</div>
+                <div class="icon-box g-4">4</div>
                 <h3>ଚତୁର୍ଥ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class5.html" class="card">
-                <div class="card-icon icon-5">5</div>
+                <div class="icon-box g-5">5</div>
                 <h3>ପଞ୍ଚମ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class6.html" class="card">
-                <div class="card-icon icon-6">6</div>
+                <div class="icon-box g-6">6</div>
                 <h3>ଷଷ୍ଠ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class7.html" class="card">
-                <div class="card-icon icon-7">7</div>
+                <div class="icon-box g-7">7</div>
                 <h3>ସପ୍ତମ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
             <a href="class8.html" class="card">
-                <div class="card-icon icon-8">8</div>
+                <div class="icon-box g-8">8</div>
                 <h3>ଅଷ୍ଟମ ଶ୍ରେଣୀ</h3>
-                <span class="btn-sm">Explore »</span>
+                <span class="btn-class">Open Class</span>
             </a>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 ERT Odisha | Education for All | Built with ❤️ for Students</p>
+        &copy; 2026 ERT Odisha | Education for All
     </footer>
 
 </body>
