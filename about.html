@@ -11,7 +11,7 @@
             --ert-red: #ff4b2b;
             --bg-light: #f0f4f8;
             --blue-teal: linear-gradient(135deg, #00c6ff, #0072ff);
-            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b); /* Match logo red theme */
+            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b); /* Professional Red Gradient */
             --glass: rgba(255, 255, 255, 0.85);
         }
 
@@ -44,7 +44,7 @@
         .nav-links { display: flex; list-style: none; gap: 25px; }
         .nav-links a { text-decoration: none; color: #555; font-size: 14px; font-weight: 500; }
 
-        /* Updated Red Gradient Button */
+        /* Aesthetic Red Gradient Button */
         .btn-red {
             background: var(--red-pink);
             color: white !important;
@@ -53,6 +53,7 @@
             font-weight: 600;
             box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
             border: none;
+            cursor: pointer;
             transition: 0.3s;
         }
 
@@ -76,7 +77,7 @@
             gap: 50px;
         }
 
-        /* --- Top Section: Text & Shield --- */
+        /* --- Top Section --- */
         .top-content {
             display: flex;
             align-items: center;
@@ -107,6 +108,7 @@
             justify-content: center;
         }
 
+        /* Shield Logo Shadow and Animation */
         .shield-area img {
             width: 180px;
             filter: drop-shadow(0 20px 30px rgba(0, 77, 148, 0.2));
@@ -118,7 +120,7 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* --- Bottom Section: Image Grid --- */
+        /* --- Image Grid Section --- */
         .image-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -146,29 +148,12 @@
             border-radius: 15px;
         }
 
-        /* --- Feature Labels --- */
-        .labels {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .label-btn {
-            padding: 10px 25px;
-            border-radius: 12px;
-            color: white;
-            font-weight: 700;
-            font-size: 14px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
         footer { text-align: center; padding: 40px; color: #888; font-size: 14px; }
 
         @media (max-width: 900px) {
             .top-content { flex-direction: column; text-align: center; }
             .text-area h1 { font-size: 2.2rem; border: none; padding: 0; }
             .image-grid { grid-template-columns: 1fr; }
-            .labels { justify-content: center; flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -176,7 +161,7 @@
 
     <nav>
         <a href="index.html" class="logo-nav">
-            <img src="images/logo.jpg" alt="Logo"> ERT Odisha
+            <img src="images/logo.png" alt="Logo"> ERT Odisha
         </a>
         <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
@@ -196,18 +181,12 @@
                         <strong>Odisha e-Resource Team</strong> is a leading education oriented team, working unconditionally to improve learning methods for students and teachers across Odisha.
                     </p>
                     <p>
-                        We create high-quality digital and audio-visual materials to make classroom learning easier, more creative, and more effective.
+                        We create high-quality digital materials to make classroom learning easier, more creative, and more effective for our students.
                     </p>
-                    
-                    <div class="labels">
-                        <div class="label-btn" style="background: var(--blue-teal);">Innovation</div>
-                        <div class="label-btn" style="background: var(--red-pink);">Education</div>
-                        <div class="label-btn" style="background: #4CAF50;">Dedication</div>
-                    </div>
                 </div>
 
                 <div class="shield-area">
-                    <img src="images/logo.jpg" alt="ERT Shield">
+                    <img src="images/logo.png" alt="ERT Shield">
                 </div>
             </div>
 
