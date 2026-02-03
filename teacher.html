@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eRT Odisha - Teacher Portal</title>
+    <style>
+        /* --- MODERN THEME --- */
+        :root {
+            --primary: #0d47a1; 
+            --primary-hover: #002171;
+            --accent: #d32f2f; 
+            --whatsapp: #25D366; /* WhatsApp Green */
+            --bg-color: #f4f6f8;
+            --text-dark: #333;
+            --card-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        body { font-family: 'Segoe UI', sans-serif; padding: 20px; max-width: 600px; margin: auto; background-color: var(--bg-color); color: var(--text-dark); }
+        
+        .top-bar { 
+            background: var(--primary); padding: 15px 20px; border-radius: 8px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            margin-bottom: 25px; box-shadow: var(--card-shadow); color: white;
+        }
+        .brand-wrapper { display: flex; align-items: center; gap: 15px; }
+        .app-logo { height: 50px; width: 50px; border-radius: 50%; border: 2px solid white; background: white; object-fit: cover; }
+        
+        /* Header Text Styles */
+        .header-text { display: flex; flex-direction: column; }
+        .header-text h2 { margin: 0; font-size: 1.2rem; font-weight: 600; line-height: 1.2; }
+        .user-details { font-size: 0.8em; font-weight: 400; opacity: 0.9; margin-top: 2px; }
+
+        /* HEADER BUTTONS CONTAINER */
+        .header-actions { display: none; align-items: center; gap: 10px; }
+        
+        /* Logout Button */
+        .logout-btn { background: var(--accent); color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.9em; }
+
+        /* WhatsApp Button */
+        .whatsapp-btn { 
+            background: var(--whatsapp); color: white; text-decoration: none; 
+            padding: 8px 16px; border-radius: 4px; font-weight: bold; font-size: 0.9em; 
+            border: 1px solid #1ebe57; cursor: pointer; display: flex; align-items: center; 
+        }
+        .whatsapp-btn:hover { background: #1ebe57; }
+
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: var(--card-shadow); margin-bottom: 20px; border-top: 4px solid var(--primary); }
+        h3 { margin-top: 0; color: var(--primary); }
+
+        input, select, textarea { 
+            width: 100%; margin: 10px 0; padding: 12px; box-sizing: border-box; 
+            border: 1px solid #ccc; border-radius: 6px; font-size: 16px; 
+        }
+        .section-label { font-weight: 600; font-size: 0.9em; margin-top: 15px; display: flex; justify-content: space-between; align-items: center; color: #555; text-transform: uppercase; }
+
+        button#saveBtn, button#authBtn { 
+            width: 100%; background: var(--primary); color: white; border: none; font-weight: bold; 
+            cursor: pointer; font-size: 16px; margin-top: 15px; border-radius: 6px; padding: 14px; 
+        }
+        button.secondary { background: #546e7a; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        button.delete { background: var(--accent); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; margin-left: 5px; }
+
+        .hidden { display: none !important; }
+        .q-item { border-bottom: 1px solid #eee; padding: 15px 0; }
+        .q-img-preview { max-width: 100px; display: block; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; }
+        
+        .verified-badge { background:#e8f5e9; color:#2e7d32; border:1px solid #c8e6c9; padding:2px 8px; border-radius:12px; font-size:0.7em; font-weight:bold; vertical-align:middle; margin-left:5px; }
+
+        /* --- FULLSCREEN EDITOR STYLES --- */
+        #fullscreen-editor {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 2000; display: none; flex-direction: column;
+        }
+        .editor-toolbar {
+            background: #eee; padding: 10px; display: flex; flex-wrap: wrap; gap: 8px;
+            border-bottom: 1px solid #ccc; align-items: center;
+        }
+        .editor-toolbar button { padding: 8px 12px; border: 1px solid #bbb; background: white; cursor: pointer; border-radius: 4px; font-weight: bold; }
+        .editor-toolbar select, .editor-toolbar input[type="color"] { padding: 5px; cursor: pointer; }
+        .editor-content { flex-grow: 1; padding: 20px; font-size: 1.2rem; outline: none; overflow-y: auto; }
+        .fs-toggle-btn { background: #e3f2fd; color: #0d47a1; border: 1px dashed #0d47a1; padding: 4px 8px; font-size: 11px; cursor: pointer; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+    <div id="fullscreen-editor">
+        <div class="editor-toolbar">
+            <button onclick="execCmd('bold')">B</button>
+            <button onclick="execCmd('italic')">I</button>
+            <button onclick="execCmd('underline')">U</button>
+            <input type="color" onchange="execCmd('foreColor', this.value)" title="Text Color">
+            <select onchange="execCmd('fontSize', this.value)">
+                <option value="3">Size: Normal</option>
+                <option value="5">Size: Large</option>
+                <option value="7">Size: Extra Large</option>
+            </select>
+            <div style="flex-grow: 1;"></div>
+            <button onclick="closeEditor()" style="background:var(--primary); color:white; border:none;">Done & Save</button>
+        </div>
+        <div id="rich-content" class="editor-content" contenteditable="true"></div>
+    </div>
+
+    <div class="top-bar">
+        <div class="brand-wrapper">
+            <img src="logo.jpg" alt="Logo" class="app-logo">
+            <div class="header-text">
+                <h2>eRT Odisha</h2>
+                <span id="header-details" class="user-details">Teacher Portal</span>
+            </div>
+        </div>
+        
+        <div id="header-actions" class="header-actions">
+            <a href="https://chat.whatsapp.com/YOUR_GROUP_LINK_HERE" target="_blank" class="whatsapp-btn">
+                Join Group
+            </a>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div id="auth-section" class="card">
+        <h3 id="auth-title">Teacher Login</h3>
+        <input type="email" id="email" placeholder="Email Address">
+        <input type="password" id="password" placeholder="Password">
+        
+        <div id="signup-fields" class="hidden">
+            <input type="text" id="tName" placeholder="Your Full Name">
+            <input type="text" id="tDistrict" placeholder="District Name">
+            <input type="text" id="tBlock" placeholder="Block Name">
+        </div>
+
+        <button onclick="handleAuth()" id="authBtn">Login</button>
+        <p style="text-align:center; cursor:pointer; color:var(--primary); margin-top:15px;" onclick="toggleAuthMode()">Switch to Signup / Login</p>
+    </div>
+
+    <div id="dashboard-section" class="hidden">
+        <div class="card">
+            <h3>Add Question</h3>
+            <input type="hidden" id="editId">
+            
+            <label class="section-label">1. Select Exam:</label>
+            <select id="qExam" onchange="handleExamChange()">
+                <option value="" disabled selected>-- Choose Exam --</option>
+                <option value="OAV">OAV (Entrance)</option>
+                <option value="NAVODAYA">NAVODAYA (Entrance)</option>
+                <option value="EKALABYA">EKALABYA (Entrance)</option>
+                <option value="PATHANI SAMANTA">PATHANI SAMANTA</option>
+                <option value="NMMS">NMMS</option>
+                <option value="5TH BOARD">5th Board Exam</option>
+                <option value="8TH BOARD">8th Board Exam</option>
+            </select>
+
+            <label class="section-label">2. Select Subject:</label>
+            <select id="qSubject" onchange="saveSubjectPreference()">
+                <option value="" disabled selected>-- Select Exam First --</option>
+            </select>
+
+            <div id="cat-wrapper" class="hidden">
+                <label class="section-label">Question Category:</label>
+                <select id="qCategory">
+                    <option value="Very Short">Very Short Answer</option>
+                    <option value="Short">Short Answer</option>
+                    <option value="Long">Long Answer</option>
+                </select>
+            </div>
+
+            <label class="section-label">
+                3. Question: 
+                <span class="fs-toggle-btn" onclick="openEditor('qText')">⛶ Full Screen</span>
+            </label>
+            <textarea id="qText" placeholder="Type Question Here..." rows="3"></textarea>
+            
+            <label style="font-size:0.8em; color:#666;">Question Image (Optional):</label>
+            <input type="file" id="qImage" accept="image/*">
+            
+            <div id="mcq-inputs">
+                <label class="section-label">Options:</label>
+                <input type="text" id="opA" placeholder="Option A">
+                <input type="text" id="opB" placeholder="Option B">
+                <input type="text" id="opC" placeholder="Option C">
+                <input type="text" id="opD" placeholder="Option D">
+                
+                <label class="section-label">Correct Answer:</label>
+                <select id="correctAns">
+                    <option value="A">Option A</option>
+                    <option value="B">Option B</option>
+                    <option value="C">Option C</option>
+                    <option value="D">Option D</option>
+                </select>
+            </div>
+
+            <div id="subjective-inputs" class="hidden">
+                <label class="section-label">
+                    Answer: 
+                    <span class="fs-toggle-btn" onclick="openEditor('ansText')">⛶ Full Screen</span>
+                </label>
+                <textarea id="ansText" placeholder="Type the Answer here..." rows="4"></textarea>
+                
+                <label style="font-size:0.8em; color:#666;">Answer Image (Optional):</label>
+                <input type="file" id="ansImage" accept="image/*">
+            </div>
+            
+            <button onclick="saveQuestion()" id="saveBtn">Submit Question</button>
+            <button onclick="cancelEdit()" id="cancelBtn" class="secondary hidden" style="width:100%; margin-top:10px; padding:12px;">Cancel Edit</button>
+        </div>
+
+        <div class="card">
+            <h3>My Questions</h3>
+            <div id="my-questions-list">Loading...</div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { db, auth } from "./firebase-config.js";
+        import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, updateProfile } 
+        from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { collection, addDoc, updateDoc, deleteDoc, doc, query, where, onSnapshot, orderBy, enableIndexedDbPersistence } 
+        from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        enableIndexedDbPersistence(db).catch(err => console.log("Persistence suppressed."));
+
+        let isSignup = false;
+        let currentUser = null;
+        let currentMode = "MCQ";
+        let activeEditorTarget = '';
+
+        // --- VISUAL EDITOR ---
+        window.openEditor = (targetId) => {
+            activeEditorTarget = targetId;
+            const content = document.getElementById(targetId).value;
+            document.getElementById('rich-content').innerHTML = content.replace(/\n/g, '<br>');
+            document.getElementById('fullscreen-editor').style.display = 'flex';
+        };
+
+        window.closeEditor = () => {
+            const richHtml = document.getElementById('rich-content').innerHTML;
+            document.getElementById(activeEditorTarget).value = richHtml;
+            document.getElementById('fullscreen-editor').style.display = 'none';
+        };
+
+        window.execCmd = (cmd, val = null) => { document.execCommand(cmd, false, val); };
+
+        // --- EXAM CONFIG ---
+        const examConfig = {
+            "OAV": { type: "MCQ", subjects: ["English", "Math", "Science", "Social Science"] },
+            "NAVODAYA": { type: "MCQ", subjects: ["Mental Ability", "Math", "Language"] },
+            "EKALABYA": { type: "MCQ", subjects: ["Mental Ability", "Math", "English"] },
+            "PATHANI SAMANTA": { type: "MCQ", subjects: ["Math"] },
+            "NMMS": { type: "MCQ", subjects: ["Mental Ability", "Math", "Science", "Social Science"] },
+            "5TH BOARD": { type: "SUBJECTIVE", subjects: ["Odia", "English", "Paribesa Bigyan", "Math"] },
+            "8TH BOARD": { type: "SUBJECTIVE", subjects: ["Odia", "English", "Science", "History", "Geography", "Math"] }
+        };
+
+        window.handleExamChange = () => {
+            const examSelect = document.getElementById("qExam");
+            const selectedExam = examSelect.value;
+            const config = examConfig[selectedExam];
+            localStorage.setItem('prefExam', selectedExam);
+
+            const subjectSelect = document.getElementById("qSubject");
+            subjectSelect.innerHTML = '<option value="" disabled selected>-- Choose Subject --</option>';
+            if (config) {
+                config.subjects.forEach(sub => {
+                    const opt = document.createElement("option");
+                    opt.value = sub; opt.innerText = sub;
+                    subjectSelect.appendChild(opt);
+                });
+                currentMode = config.type;
+                toggleFormMode(config.type);
+            }
+        };
+
+        function toggleFormMode(mode) {
+            document.getElementById("mcq-inputs").classList.toggle("hidden", mode === "SUBJECTIVE");
+            document.getElementById("subjective-inputs").classList.toggle("hidden", mode !== "SUBJECTIVE");
+            document.getElementById("cat-wrapper").classList.toggle("hidden", mode !== "SUBJECTIVE");
+        }
+
+        window.saveSubjectPreference = () => localStorage.setItem('prefSubject', document.getElementById("qSubject").value);
+        window.toggleAuthMode = () => {
+            isSignup = !isSignup;
+            document.getElementById('auth-title').innerText = isSignup ? "Teacher Signup" : "Teacher Login";
+            document.getElementById('authBtn').innerText = isSignup ? "Create Account" : "Login";
+            document.getElementById('signup-fields').classList.toggle('hidden', !isSignup);
+        };
+
+        // --- AUTH HANDLER ---
+        window.handleAuth = async () => {
+            const email = document.getElementById('email').value;
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('authBtn');
+            btn.innerText = "Please wait..."; btn.disabled = true;
+
+            try {
+                if (isSignup) {
+                    const name = document.getElementById('tName').value;
+                    const district = document.getElementById('tDistrict').value;
+                    const block = document.getElementById('tBlock').value;
+
+                    if(!name || !district || !block) throw new Error("Name, District and Block are required.");
+
+                    // Combine: "Name | District | Block"
+                    let combinedDisplayName = `${name} | ${district} | ${block}`;
+
+                    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+                    await updateProfile(cred.user, { displayName: combinedDisplayName });
+
+                } else {
+                    await signInWithEmailAndPassword(auth, email, pass);
+                }
+            } catch (e) { 
+                alert(e.message); 
+                btn.innerText = isSignup ? "Create Account" : "Login";
+                btn.disabled = false;
+            }
+        };
+
+        window.logout = () => signOut(auth);
+
+        const compressImage = (file) => {
+            return new Promise((resolve) => {
+                const reader = new FileReader(); reader.readAsDataURL(file);
+                reader.onload = (e) => {
+                    const img = new Image(); img.src = e.target.result;
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const scale = 800 / img.width;
+                        canvas.width = Math.min(img.width, 800);
+                        canvas.height = img.height * (canvas.width / img.width);
+                        canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                        resolve(canvas.toDataURL('image/jpeg', 0.7));
+                    };
+                };
+            });
+        };
+
+        window.saveQuestion = async () => {
+            const btn = document.getElementById('saveBtn');
+            btn.innerText = "Processing..."; btn.disabled = true;
+            try {
+                const editId = document.getElementById('editId').value;
+                const data = {
+                    exam: document.getElementById('qExam').value,
+                    subject: document.getElementById('qSubject').value,
+                    question: document.getElementById('qText').value,
+                    type: currentMode,
+                    timestamp: Date.now(),
+                    teacher: currentUser.displayName, 
+                    uid: currentUser.uid,
+                    verified: false
+                };
+
+                const qFile = document.getElementById('qImage').files[0];
+                if (qFile) data.imageUrl = await compressImage(qFile);
+
+                if (currentMode === "SUBJECTIVE") {
+                    data.category = document.getElementById('qCategory').value;
+                    data.answerText = document.getElementById('ansText').value;
+                    const ansFile = document.getElementById('ansImage').files[0];
+                    if (ansFile) data.answerImage = await compressImage(ansFile);
+                } else {
+                    data.options = {
+                        A: document.getElementById('opA').value, B: document.getElementById('opB').value,
+                        C: document.getElementById('opC').value, D: document.getElementById('opD').value
+                    };
+                    data.answer = document.getElementById('correctAns').value;
+                }
+
+                if (editId) await updateDoc(doc(db, "questions", editId), data);
+                else await addDoc(collection(db, "questions"), data);
+                alert("Success!"); cancelEdit();
+            } catch (e) { alert(e.message); }
+            finally { btn.innerText = "Submit Question"; btn.disabled = false; }
+        };
+
+        function loadMyQuestions(uid) {
+            const qList = document.getElementById('my-questions-list');
+            const q = query(collection(db, "questions"), where("uid", "==", uid), orderBy("timestamp", "desc"));
+            onSnapshot(q, (snap) => {
+                qList.innerHTML = snap.empty ? "<p>No questions.</p>" : "";
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const div = document.createElement('div');
+                    div.className = "q-item";
+                    div.innerHTML = `
+                        <div style="font-size:0.8em; color:var(--primary);"><b>${data.exam}</b> • ${data.subject}</div>
+                        <div style="margin:8px 0;">${data.question}</div>
+                        ${data.imageUrl ? `<img src="${data.imageUrl}" class="q-img-preview">` : ''}
+                        <div style="font-size:0.9em; background:#f9f9f9; padding:5px;">
+                            ${data.type==='MCQ' ? `Ans: ${data.answer}` : `<b>Ans (${data.category}):</b> ${data.answerText}`}
+                        </div>
+                        <div style="margin-top:10px;">
+                            <button class="secondary" onclick="editQ('${docSnap.id}')">Edit</button>
+                            <button class="delete" onclick="deleteQ('${docSnap.id}')">Delete</button>
+                        </div>
+                    `;
+                    div.dataset.json = JSON.stringify(data);
+                    div.dataset.id = docSnap.id;
+                    qList.appendChild(div);
+                });
+            });
+        }
+
+        window.deleteQ = async (id) => { if(confirm("Delete?")) await deleteDoc(doc(db, "questions", id)); };
+
+        window.editQ = (id) => {
+            const el = document.querySelector(`div[data-id="${id}"]`);
+            const data = JSON.parse(el.dataset.json);
+            document.getElementById('editId').value = id;
+            document.getElementById('qExam').value = data.exam;
+            handleExamChange();
+            setTimeout(() => {
+                document.getElementById('qSubject').value = data.subject;
+                document.getElementById('qText').value = data.question;
+                if(data.type === "SUBJECTIVE") {
+                    document.getElementById('qCategory').value = data.category;
+                    document.getElementById('ansText').value = data.answerText;
+                } else {
+                    document.getElementById('opA').value = data.options.A;
+                    document.getElementById('opB').value = data.options.B;
+                    document.getElementById('opC').value = data.options.C;
+                    document.getElementById('opD').value = data.options.D;
+                    document.getElementById('correctAns').value = data.answer;
+                }
+                document.getElementById('saveBtn').innerText = "Update Question";
+                document.getElementById('cancelBtn').classList.remove('hidden');
+                window.scrollTo(0,0);
+            }, 100);
+        };
+
+        window.cancelEdit = () => {
+            document.getElementById('editId').value = "";
+            document.getElementById('qText').value = "";
+            document.getElementById('ansText').value = "";
+            document.getElementById('saveBtn').innerText = "Submit Question";
+            document.getElementById('cancelBtn').classList.add('hidden');
+        };
+
+        // --- AUTH STATE ---
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('auth-section').classList.add('hidden');
+                document.getElementById('dashboard-section').classList.remove('hidden');
+                
+                // SHOW BUTTONS
+                document.getElementById('header-actions').style.display = 'flex';
+
+                // PARSE "Name | District | Block"
+                const rawName = user.displayName || "";
+                const parts = rawName.split('|').map(s => s.trim());
+                
+                const tName = parts[0] || "Teacher";
+                const tLoc = parts.length > 1 ? parts.slice(1).join(', ') : ""; 
+
+                document.getElementById('header-details').innerHTML = `
+                    <strong>${tName}</strong><br>
+                    ${tLoc ? tLoc : "Teacher Portal"}
+                `;
+
+                loadMyQuestions(user.uid);
+            } else {
+                document.getElementById('auth-section').classList.remove('hidden');
+                document.getElementById('dashboard-section').classList.add('hidden');
+                
+                // HIDE BUTTONS
+                document.getElementById('header-actions').style.display = 'none';
+                
+                document.getElementById('header-details').innerText = "Teacher Portal";
+                document.getElementById('authBtn').innerText = "Login";
+                document.getElementById('authBtn').disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
