@@ -2,35 +2,33 @@
 <html lang="or">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ERT Odisha | Student Quiz Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERT Odisha | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- BRAND THEME --- */
         :root {
             --ert-blue: #1a4d94;
             --ert-red: #ff4b2b;
             --bg-light: #f0f4f8;
             --blue-teal: linear-gradient(135deg, #00c6ff, #0072ff);
             --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b);
-            --correct: #2e7d32;
-            --wrong: #d32f2f;
-            --text-main: #333;
+            --glass-card: rgba(255, 255, 255, 0.95);
         }
 
-        /* --- LAYOUT RESET --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        
-        html, body {
-            height: 100%;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
             background-color: var(--bg-light);
-            color: var(--text-main);
-            user-select: none;
+            color: #333;
+            line-height: 1.6;
         }
 
-        body { display: flex; flex-direction: column; overflow-x: hidden; }
-
-        /* --- STICKY HEADER (AS PER INDEX) --- */
+        /* --- STICKY HEADER --- */
         nav {
             background: #fff;
             padding: 0 8%;
@@ -41,114 +39,185 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            height: 70px;
-            flex-shrink: 0;
+            height: 75px;
         }
-        .logo-nav { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--ert-blue); font-weight: 700; }
-        .logo-nav img { height: 40px; }
-        .portal-label { font-size: 0.65em; color: var(--ert-red); text-transform: uppercase; letter-spacing: 1px; display: block; font-weight: 400; }
 
-        .nav-links { display: flex; list-style: none; gap: 20px; align-items: center; }
-        .nav-links a { text-decoration: none; color: #666; font-size: 14px; font-weight: 500; }
+        .logo-nav { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ert-blue); font-weight: 700; }
+        .logo-nav img { height: 45px; }
+        .logo-nav h1 { font-size: 1.4rem; margin: 0; }
+
+        .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #555; font-size: 14px; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--ert-blue); }
+
         .btn-contact {
             background: var(--red-pink);
             color: white !important;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 50px;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3);
+            box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+            border: none;
+            cursor: pointer;
         }
 
-        /* --- MAIN APP WRAPPER --- */
-        #app-content {
+        /* --- HERO SECTION --- */
+        .hero-wrapper { padding: 40px 8% 20px; }
+        .hero-container {
+            background: white;
+            border-radius: 40px;
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            position: relative;
+            gap: 30px;
+        }
+
+        .hero-left { flex: 1.2; }
+        .hero-left h1 {
+            font-size: 2.8rem;
+            color: var(--ert-blue);
+            line-height: 1.2;
+            margin-bottom: 20px;
+            border-left: 6px solid var(--ert-red);
+            padding-left: 20px;
+        }
+        .hero-left p { color: #888; margin-bottom: 30px; font-size: 1rem; max-width: 400px; }
+
+        .hero-center-shield { flex: 0.8; display: flex; justify-content: center; }
+        .hero-center-shield img {
+            width: 160px;
+            filter: drop-shadow(0 20px 30px rgba(0, 77, 148, 0.25)); 
+            animation: floating 4s ease-in-out infinite;
+        }
+        @keyframes floating { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+
+        .hero-right-card {
             flex: 1;
-            padding: 40px 5%;
+            background: #fcfcfc;
+            padding: 30px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid #f0f0f0;
+        }
+
+        .btn-learn {
+            background: var(--red-pink);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        /* --- QUIZ PROMO SECTION --- */
+        .quiz-promo { padding: 20px 8% 40px; text-align: center; }
+        .quiz-promo-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            display: inline-block;
+            width: 100%;
+            max-width: 850px;
+            border: 1px solid #f0f0f0;
+        }
+        .quiz-promo-card h3 { color: var(--ert-blue); margin-bottom: 10px; font-size: 1.6rem; font-weight: 700; }
+        .quiz-promo-card p { color: #888; margin-bottom: 25px; }
+
+        .quiz-pulse-btn {
+            background: var(--blue-teal);
+            color: white;
+            text-decoration: none;
+            padding: 18px 50px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: inline-block;
+            box-shadow: 0 10px 20px rgba(0, 198, 255, 0.3);
+            transition: 0.3s;
+            animation: pulse-animation 2s infinite;
+        }
+        @keyframes pulse-animation {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 198, 255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(0, 198, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 198, 255, 0); }
+        }
+
+        /* --- CLASS SELECTION --- */
+        .select-section { padding: 20px 8% 80px; text-align: center; }
+        .select-section h2 { font-size: 1.8rem; color: var(--ert-blue); margin-bottom: 40px; font-weight: 700; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+        .class-card {
+            background: white;
+            padding: 35px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+        }
+        .class-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+
+        .class-icon {
+            width: 70px; height: 70px; border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 28px; font-weight: 700; margin-bottom: 20px;
+        }
+        .blue-icon { background: var(--blue-teal); }
+        .red-icon { background: var(--red-pink); }
+
+        .open-btn {
+            background: #fff;
+            color: var(--ert-blue);
+            padding: 10px 30px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: 0.3s;
         }
 
-        /* The White Pod Design */
-        .portal-card {
-            background: white;
-            border-radius: 40px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            width: 100%;
-            max-width: 900px;
-            min-height: 450px;
-            position: relative;
-        }
-
-        /* --- PROGRESS BAR --- */
-        .quiz-status-bar {
-            background: #fff; padding: 0 0 20px 0;
-            display: none; align-items: center; justify-content: space-between;
-        }
-        .progress-text { font-weight: 700; color: var(--ert-blue); font-size: 0.85rem; }
-        .progress-track { background: #e0e0e0; border-radius: 10px; height: 8px; flex-grow: 1; margin-left: 15px; overflow: hidden; }
-        .progress-fill { height: 100%; background: var(--blue-teal); width: 0%; transition: width 0.3s ease; }
-
-        /* --- TILES --- */
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
-        .tile {
-            background: white; padding: 30px 15px; border-radius: 20px; text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.02); cursor: pointer; border: 1px solid #f0f0f0;
-            transition: 0.3s; color: var(--ert-blue); font-weight: 700; text-transform: uppercase;
-            position: relative; overflow: hidden;
-        }
-        .tile:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.08); }
-        .tile::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 5px; background: var(--blue-teal); }
-        .tile.subject-tile::after { background: var(--red-pink); }
-
-        /* --- QUIZ UI --- */
-        #view-quiz { height: 100%; display: flex; flex-direction: column; }
-        .q-text { font-size: 1.2rem; font-weight: 600; color: #222; line-height: 1.4; margin-bottom: 20px; }
-        .opt-btn {
-            width: 100%; padding: 12px 15px; border: 2px solid #edf2f7; background: #fff;
-            border-radius: 12px; cursor: pointer; text-align: left; font-size: 1rem; 
-            color: #444; transition: 0.2s; margin-bottom: 10px; font-weight: 500;
-        }
-        .opt-btn.correct { background: #e8f5e9 !important; border-color: var(--correct) !important; color: var(--correct); font-weight: 700; }
-        .opt-btn.wrong { background: #fff5f5 !important; border-color: var(--wrong) !important; color: var(--wrong); }
-
-        /* CANVAS BOARD */
-        #calc-board-container { flex-grow: 1; background-color: #f8fafc; position: relative; min-height: 200px; border: 1px solid #eee; border-radius: 15px; margin: 10px 0; }
-        #smart-board-btn {
-            position: absolute; bottom: 15px; right: 15px; width: 50px; height: 50px;
-            border-radius: 50%; background: white; border: 1px solid #ddd;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 1.4rem; display: flex; align-items: center; justify-content: center; z-index: 10;
-        }
-
-        /* --- NEXT BUTTON --- */
-        #quiz-footer { margin-top: 20px; display: none; }
-        .next-btn {
-            background: var(--red-pink); color: white; border: none; height: 55px; width: 100%;
-            border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.3); transition: 0.3s;
-        }
-        .next-btn:disabled { background: #cbd5e0; box-shadow: none; cursor: not-allowed; }
-
-        /* --- FOOTER (MATCHING INDEX) --- */
+        /* --- FOOTER --- */
         footer {
-            background: white;
-            padding: 60px 8% 30px;
-            border-top: 1px solid #eee;
-            margin-top: 40px;
+            background: white; padding: 60px 8% 30px;
+            border-top: 1px solid #eee; margin-top: 40px;
         }
         .footer-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: left; }
-        .footer-about h4, .footer-links h4 { color: var(--ert-blue); margin-bottom: 15px; }
+        .footer-about h4, .footer-links h4 { color: var(--ert-blue); margin-bottom: 15px; font-weight: 700; }
         .footer-about p, .footer-links a { font-size: 14px; color: #777; text-decoration: none; line-height: 1.6; }
         .footer-links ul { list-style: none; }
         .footer-links li { margin-bottom: 10px; }
-        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #f5f5f5; font-size: 13px; color: #aaa; margin-top: 30px;}
+        .footer-links a:hover { color: var(--ert-blue); padding-left: 5px; transition: 0.3s; }
+        .footer-bottom { text-align: center; padding-top: 30px; border-top: 1px solid #f5f5f5; font-size: 13px; color: #aaa; margin-top: 30px; }
 
-        .hidden { display: none !important; }
+        /* --- MOBILE TOGGLE --- */
+        .menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .menu-toggle span { width: 25px; height: 3px; background: var(--ert-blue); border-radius: 5px; }
 
-        @media (max-width: 600px) {
-            nav { padding: 0 4%; }
-            .nav-links { display: none; }
-            .portal-card { padding: 25px; border-radius: 25px; }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            nav { padding: 0 5%; }
+            .nav-links {
+                display: none; flex-direction: column; position: absolute;
+                top: 70px; left: 0; width: 100%; background: white; padding: 30px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.05); gap: 20px; text-align: center;
+            }
+            .nav-links.active { display: flex; }
+            .menu-toggle { display: flex; }
+            .hero-container { flex-direction: column; text-align: center; padding: 40px 20px; }
+            .hero-left h1 { font-size: 2.2rem; border-left: none; padding-left: 0; }
+            .hero-left p { margin: 0 auto 30px; }
+            .hero-center-shield { order: -1; margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -156,60 +225,73 @@
 
     <nav>
         <a href="index.html" class="logo-nav">
-            <img src="images/logo.png" alt="Logo"> 
-            <div>
-                <h1>ERT Odisha</h1>
-                <span class="portal-label">Student Portal</span>
-            </div>
+            <img src="images/logo.png" alt="ERT Logo"> 
+            <h1>ERT Odisha</h1>
         </a>
-        <ul class="nav-links">
+        <ul class="nav-links" id="nav-links">
             <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="team.html">Team</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="team.html">Our Team</a></li>
             <li><a href="contact.html" class="btn-contact">Contact Us</a></li>
         </ul>
+        <div class="menu-toggle" id="mobile-menu">
+            <span></span><span></span><span></span>
+        </div>
     </nav>
 
-    <div id="app-content">
-        <div class="portal-card">
-            <div id="quiz-header" class="quiz-status-bar">
-                <span id="q-counter" class="progress-text">Q 1/10</span>
-                <div class="progress-track"><div class="progress-fill" id="progress-bar"></div></div>
+    <div class="hero-wrapper">
+        <div class="hero-container">
+            <div class="hero-left">
+                <h1>We Care About <br> Our Students</h1>
+                <p>We provide high quality e-resources for the digital growth of Odisha students.</p>
+                <a href="#" class="btn-learn" style="background:#4CAF50;">Get Started »</a>
             </div>
 
-            <div id="view-exams">
-                <h2 style="color:var(--ert-blue); margin-bottom: 25px; border-left: 5px solid var(--ert-red); padding-left: 15px;">Select Exam</h2>
-                <div class="grid-container" id="exam-grid"></div>
+            <div class="hero-center-shield">
+                <img src="images/logo.png" alt="ERT Shield">
             </div>
 
-            <div id="view-subjects" class="hidden">
-                <div style="display: flex; align-items: center; margin-bottom: 20px;">
-                    <button onclick="goHome()" style="background:#f0f0f0; border:none; padding:8px 15px; border-radius:8px; cursor:pointer; margin-right:15px;">⬅ Back</button>
-                    <h3 id="selected-exam-title" style="color:var(--ert-blue);">Exam</h3>
-                </div>
-                <div class="grid-container" id="subject-grid"></div>
-            </div>
-
-            <div id="view-quiz" class="hidden">
-                <div id="quiz-question-area"><div id="quiz-card-content"></div></div>
-                <div id="calc-board-container">
-                    <canvas id="drawing-canvas"></canvas>
-                    <div id="smart-board-btn" class="is-pen" onclick="handleBoardBtn()">✏️</div>
-                </div>
-                <div id="quiz-footer">
-                    <button class="next-btn" id="next-btn" onclick="nextQuestion()" disabled>Next Question ➡</button>
-                </div>
-            </div>
-
-            <div id="view-results" class="hidden" style="text-align:center; padding: 20px 0;">
-                <h2 style="color:var(--ert-blue); margin-bottom:15px;">Quiz Completed!</h2>
-                <div id="final-score" style="font-size: 3rem; font-weight: 800; color: var(--ert-blue); margin-bottom: 10px;">0</div>
-                <p id="score-text" style="font-weight:600; color:#666; margin-bottom: 30px;">You scored X out of 10</p>
-                <button class="next-btn" onclick="goHome()">Back to Menu</button>
-                <div id="review-list" style="text-align:left; margin-top:40px;"></div>
+            <div class="hero-right-card">
+                <h3 style="color:var(--ert-blue); margin-bottom:10px;">ERT Education</h3>
+                <p style="font-size:13px; color:#aaa; margin-bottom:20px;">Digital Learning made simple for everyone across the state.</p>
+                <a href="about.html" class="btn-learn">Learn More</a>
             </div>
         </div>
     </div>
+
+    <div class="quiz-promo">
+        <div class="quiz-promo-card">
+            <h3>Practice for Excellence! 🎯</h3>
+            <p>Take mock tests for OAV, Navodaya, Pathani Samanta, and more.</p>
+            <a href="quiz.html" class="quiz-pulse-btn">Open Student Quiz Portal »</a>
+        </div>
+    </div>
+
+    <section class="select-section">
+        <h2>Select Your Class</h2>
+        <div class="grid">
+            <a href="class1.html" class="class-card">
+                <div class="class-icon blue-icon">1</div>
+                <h3>ପ୍ରଥମ ଶ୍ରେଣୀ</h3>
+                <div class="open-btn">Open Class</div>
+            </a>
+            <a href="class2.html" class="class-card">
+                <div class="class-icon blue-icon">2</div>
+                <h3>ଦ୍ଵିତୀୟ ଶ୍ରେଣୀ</h3>
+                <div class="open-btn">Open Class</div>
+            </a>
+            <a href="class5.html" class="class-card">
+                <div class="class-icon red-icon">5</div>
+                <h3>ପଞ୍ଚମ ଶ୍ରେଣୀ</h3>
+                <div class="open-btn">Open Class</div>
+            </a>
+            <a href="class6.html" class="class-card">
+                <div class="class-icon red-icon">6</div>
+                <h3>ଷଷ୍ଠ ଶ୍ରେଣୀ</h3>
+                <div class="open-btn">Open Class</div>
+            </a>
+        </div>
+    </section>
 
     <footer>
         <div class="footer-container">
@@ -223,7 +305,7 @@
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="team.html">Our Team</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
+                    <li><a href="quiz.html">Quiz Portal</a></li>
                 </ul>
             </div>
             <div class="footer-links">
@@ -236,13 +318,16 @@
             </div>
         </div>
         <div class="footer-bottom">
-            © 2026 ERT Odisha | Education for All | Built with ❤️ for Students
+            &copy; 2026 ERT Odisha | Education for All | Built with ❤️ for Students
         </div>
     </footer>
 
-    <script type="module">
-       /* Keep your existing firebase logic and function definitions here */
-       /* Ensure you call init() or initPortal() at the end */
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const navLinks = document.querySelector('#nav-links');
+        menu.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
     </script>
 </body>
 </html>
