@@ -183,10 +183,6 @@
                         <label>Exam Type</label>
                         <select id="qExam" onchange="handleExamChange()">
                             <option value="" disabled selected>-- Select --</option>
-                            <option value="OAV">OAV</option>
-                            <option value="NAVODAYA">NAVODAYA</option>
-                            <option value="NMMS">NMMS</option>
-                            <option value="PATHANI SAMANTA">PATHANI SAMANTA</option>
                             <option value="5TH BOARD">5th Board</option>
                             <option value="8TH BOARD">8th Board</option>
                         </select>
@@ -322,11 +318,17 @@
             "NAVODAYA": { type: "MCQ", subjects: ["Mental Ability", "Math", "Language"] },
             "NMMS": { type: "MCQ", subjects: ["MAT", "SAT"] },
             
-            // UPDATED: CLASS 5 Subjects (As requested)
-            "5TH BOARD": { type: "BOARD", subjects: ["Odia", "English", "Paribesa Bigyan", "Samajika Bigyan", "Math"] },
+            // UPDATED: CLASS 5 Subjects (Removed Hindi)
+            "5TH BOARD": { 
+                type: "SUBJECTIVE", 
+                subjects: ["Odia (Sahitya)", "English", "Mathematics", "Environmental Studies (EVS)"] 
+            },
             
-            // UPDATED: CLASS 8 Subjects (As requested)
-            "8TH BOARD": { type: "BOARD", subjects: ["Odia", "English", "Science", "History", "Geography", "Math", "Hindi", "Sanskrit"] },
+            // UPDATED: CLASS 8 Subjects
+            "8TH BOARD": { 
+                type: "SUBJECTIVE", 
+                subjects: ["Odia (Sahitya)", "English", "Hindi", "Sanskrit", "Mathematics", "General Science", "History & Pol Sc", "Geography"] 
+            },
             
             "PATHANI SAMANTA": { type: "MCQ", subjects: ["Math"] }
         };
@@ -526,8 +528,7 @@
         };
 
         function toggleFormMode(mode) {
-            // UPDATED: Treat both SUBJECTIVE and BOARD as subjective inputs
-            const isSub = (mode === 'SUBJECTIVE' || mode === 'BOARD');
+            const isSub = mode === 'SUBJECTIVE';
             document.getElementById('mcq-inputs').classList.toggle('hidden', isSub);
             document.getElementById('subjective-inputs').classList.toggle('hidden', !isSub);
             document.getElementById('cat-wrapper').classList.toggle('hidden', !isSub);
@@ -597,11 +598,26 @@
                 if(editId) {
                     await updateDoc(doc(db, "questions", editId), data);
                     showToast("Question Updated Successfully!");
+                    cancelEdit(); // Full reset if we were editing
                 } else {
                     await addDoc(collection(db, "questions"), data);
                     showToast("Question Published Successfully!");
+                    
+                    // --- PARTIAL RESET (Keep Exam/Subject Context) ---
+                    document.getElementById('qText').value = "";
+                    document.getElementById('qImage').value = "";
+                    
+                    // Reset MCQ Fields
+                    document.getElementById('opA').value = "";
+                    document.getElementById('opB').value = "";
+                    document.getElementById('opC').value = "";
+                    document.getElementById('opD').value = "";
+                    document.getElementById('correctAns').value = "A";
+
+                    // Reset Subjective Fields
+                    document.getElementById('ansText').value = "";
+                    document.getElementById('ansImage').value = "";
                 }
-                cancelEdit();
             } catch(e) {
                 showToast(e.message, "error");
             } finally {
@@ -691,27 +707,11 @@
             }, 100);
         };
 
-        // --- UPDATED: CLEAR FORM FUNCTION ---
         window.cancelEdit = () => {
             document.getElementById('editId').value = "";
             document.getElementById('qText').value = "";
-            document.getElementById('qImage').value = ""; // Clear question image
-            
-            // Clear MCQ Fields
-            document.getElementById('opA').value = "";
-            document.getElementById('opB').value = "";
-            document.getElementById('opC').value = "";
-            document.getElementById('opD').value = "";
-            document.getElementById('correctAns').value = "A";
-
-            // Clear Subjective Fields
-            document.getElementById('ansText').value = "";
-            document.getElementById('ansImage').value = ""; // Clear answer image
-
-            // Reset Dropdowns
             document.getElementById('qExam').value = "";
-            document.getElementById('qSubject').innerHTML = '<option value="" disabled selected>-- Select Exam First --</option>';
-            
+            document.getElementById('qSubject').innerHTML = "";
             document.getElementById('saveBtn').innerText = "Submit Question";
             document.getElementById('cancelBtn').classList.add('hidden');
         };
