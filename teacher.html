@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,7 +95,14 @@
         .badge { padding: 4px 8px; border-radius: 12px; font-size: 0.7rem; font-weight: bold; }
         .badge-live { background: #e8f5e9; color: var(--success); }
         .badge-pending { background: #fff3e0; color: var(--warning); }
+        
+        .q-tag { font-size: 0.7em; padding: 2px 6px; border-radius: 4px; margin-left: 5px; font-weight: bold; }
+        .tag-mcq { background: #e3f2fd; color: #1565c0; }
+        .tag-short { background: #fff3e0; color: #ef6c00; }
+        .tag-long { background: #f3e5f5; color: #7b1fa2; }
+
         .q-actions { margin-top: 10px; display: flex; gap: 10px; justify-content: flex-end; }
+        .q-img-preview { max-width: 100px; display: block; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; }
 
         /* --- PROFILE EDITOR --- */
         .pfp-wrapper { position: relative; width: 100px; height: 100px; margin: 0 auto 15px; cursor: pointer; }
@@ -153,7 +161,6 @@
             </p>
         </div>
 
-
         <div id="dashboard-section" class="hidden">
             
             <div class="stats-grid">
@@ -192,6 +199,15 @@
                     </div>
                 </div>
 
+                <div id="cat-wrapper" class="hidden">
+                    <label>Question Category</label>
+                    <select id="qCategory" onchange="handleCategoryChange()">
+                        <option value="Very Short">Very Short Answer (1 Mark)</option>
+                        <option value="Short">Short Answer (2-3 Marks)</option>
+                        <option value="Long">Long Answer (5 Marks)</option>
+                    </select>
+                </div>
+
                 <label style="display:flex; justify-content:space-between; align-items:center;">
                     Question Text 
                     <button class="btn btn-sm btn-outline" onclick="openEditor('qText')">⛶ Fullscreen Editor</button>
@@ -217,13 +233,14 @@
                 </div>
 
                 <div id="subjective-inputs" class="hidden">
-                    <label>Category</label>
-                    <select id="qCategory">
-                        <option value="Short">Short Answer</option>
-                        <option value="Long">Long Answer</option>
-                    </select>
-                    <label>Answer Key</label>
-                    <textarea id="ansText" rows="3"></textarea>
+                    <label style="display:flex; justify-content:space-between; align-items:center; margin-top:15px;">
+                        Answer Key
+                        <button class="btn btn-sm btn-outline" onclick="openEditor('ansText')">⛶ Fullscreen Editor</button>
+                    </label>
+                    <textarea id="ansText" rows="3" placeholder="Type the answer here..."></textarea>
+                    
+                    <label style="margin-top:10px;">Answer Image (Optional)</label>
+                    <input type="file" id="ansImage" accept="image/*" style="padding: 5px;">
                 </div>
 
                 <div style="display:flex; gap:10px; margin-top:15px;">
@@ -304,13 +321,17 @@
             "OAV": { type: "MCQ", subjects: ["Math", "Science", "Social", "English"] },
             "NAVODAYA": { type: "MCQ", subjects: ["Mental Ability", "Math", "Language"] },
             "NMMS": { type: "MCQ", subjects: ["MAT", "SAT"] },
-            "5TH BOARD": { type: "SUBJECTIVE", subjects: ["Odia", "Math", "English"] },
-            "8TH BOARD": { type: "SUBJECTIVE", subjects: ["Science", "History", "Math"] },
+            
+            // UPDATED: CLASS 5 Subjects (As requested)
+            "5TH BOARD": { type: "BOARD", subjects: ["Odia", "English", "Paribesa Bigyan", "Samajika Bigyan", "Math"] },
+            
+            // UPDATED: CLASS 8 Subjects (As requested)
+            "8TH BOARD": { type: "BOARD", subjects: ["Odia", "English", "Science", "History", "Geography", "Math", "Hindi", "Sanskrit"] },
+            
             "PATHANI SAMANTA": { type: "MCQ", subjects: ["Math"] }
         };
 
         // --- HELPER: IMAGE COMPRESSOR ---
-        // Resizes and compresses image to save DB space
         const compressImage = (file, maxWidth, quality) => {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -320,15 +341,12 @@
                     img.src = e.target.result;
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
-                        // Calculate new height to keep aspect ratio
                         const scale = maxWidth / img.width;
                         canvas.width = Math.min(img.width, maxWidth);
                         canvas.height = img.height * (img.width > maxWidth ? scale : 1);
                         
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                        
-                        // 'image/jpeg' format allows quality control (0.0 to 1.0)
                         resolve(canvas.toDataURL('image/jpeg', quality));
                     };
                     img.onerror = reject;
@@ -424,8 +442,6 @@
         });
 
         // --- PROFILE & IMAGE LOGIC ---
-        
-        // Load image from Firestore DB
         async function loadUserImage(uid) {
             try {
                 const docSnap = await getDoc(doc(db, "users", uid));
@@ -458,8 +474,6 @@
         // 1. PROFILE PICTURE COMPRESSION (Aggressive)
         window.previewPfp = async (input) => {
             if(input.files && input.files[0]) {
-                // Width: 200px (Very small, perfect for icons)
-                // Quality: 0.5 (Low quality JPEG, saves massive space)
                 const url = await compressImage(input.files[0], 200, 0.5); 
                 document.getElementById('pfp-preview').src = url;
             }
@@ -480,7 +494,6 @@
                 });
 
                 // Update DB (Image String)
-                // Using setDoc with merge to ensure we don't delete other fields
                 await setDoc(doc(db, "users", auth.currentUser.uid), {
                     base64Photo: pfpBase64
                 }, { merge: true });
@@ -508,9 +521,37 @@
                     subSelect.innerHTML += `<option value="${sub}">${sub}</option>`;
                 });
                 currentMode = examConfig[exam].type;
-                const isSub = currentMode === 'SUBJECTIVE';
-                document.getElementById('mcq-inputs').classList.toggle('hidden', isSub);
-                document.getElementById('subjective-inputs').classList.toggle('hidden', !isSub);
+                toggleFormMode(currentMode);
+            }
+        };
+
+        function toggleFormMode(mode) {
+            // UPDATED: Treat both SUBJECTIVE and BOARD as subjective inputs
+            const isSub = (mode === 'SUBJECTIVE' || mode === 'BOARD');
+            document.getElementById('mcq-inputs').classList.toggle('hidden', isSub);
+            document.getElementById('subjective-inputs').classList.toggle('hidden', !isSub);
+            document.getElementById('cat-wrapper').classList.toggle('hidden', !isSub);
+
+            if(isSub) {
+                // Ensure Very Short is selected by default for Subjective
+                document.getElementById('qCategory').value = "Very Short";
+                handleCategoryChange();
+            }
+        }
+
+        window.handleCategoryChange = () => {
+            const cat = document.getElementById('qCategory').value;
+            const ansInput = document.getElementById('ansText');
+            
+            if (cat === "Very Short") {
+                ansInput.rows = 1;
+                ansInput.placeholder = "Type one word or one sentence answer...";
+            } else if (cat === "Short") {
+                ansInput.rows = 3;
+                ansInput.placeholder = "Type short answer (2-3 lines)...";
+            } else {
+                ansInput.rows = 6;
+                ansInput.placeholder = "Type detailed explanation...";
             }
         };
 
@@ -534,8 +575,6 @@
                 // 2. QUESTION IMAGE COMPRESSION (Moderate)
                 const file = document.getElementById('qImage').files[0];
                 if(file) {
-                    // Width: 600px (Readable for text)
-                    // Quality: 0.6 (Good balance)
                     data.imageUrl = await compressImage(file, 600, 0.6);
                 }
 
@@ -548,6 +587,11 @@
                 } else {
                     data.category = document.getElementById('qCategory').value;
                     data.answerText = document.getElementById('ansText').value;
+                    
+                    const ansFile = document.getElementById('ansImage').files[0];
+                    if(ansFile) {
+                        data.answerImage = await compressImage(ansFile, 600, 0.6);
+                    }
                 }
 
                 if(editId) {
@@ -580,7 +624,13 @@
                         total++;
                         if(d.verified) verified++;
                         
-                        const badge = d.verified 
+                        // Badge Logic
+                        let typeBadge = "";
+                        if(d.type === 'MCQ') typeBadge = `<span class="q-tag tag-mcq">MCQ</span>`;
+                        else if(d.category === 'Very Short') typeBadge = `<span class="q-tag tag-short">Very Short</span>`;
+                        else typeBadge = `<span class="q-tag tag-long">${d.category || 'Long'}</span>`;
+
+                        const statusBadge = d.verified 
                             ? `<span class="badge badge-live">● LIVE</span>` 
                             : `<span class="badge badge-pending">● PENDING</span>`;
                             
@@ -589,7 +639,7 @@
                         item.innerHTML = `
                             <div class="q-header">
                                 <span style="font-size:0.8rem; font-weight:700; color:var(--primary);">${d.exam} • ${d.subject}</span>
-                                ${badge}
+                                <div>${typeBadge} ${statusBadge}</div>
                             </div>
                             <div style="font-weight:500;">${d.question.substring(0, 100)}...</div>
                             <div class="q-actions">
@@ -632,6 +682,7 @@
                     document.getElementById('correctAns').value = data.answer;
                 } else {
                     document.getElementById('qCategory').value = data.category;
+                    handleCategoryChange(); // Adjust UI size based on category
                     document.getElementById('ansText').value = data.answerText;
                 }
                 document.getElementById('saveBtn').innerText = "Update Question";
@@ -640,11 +691,27 @@
             }, 100);
         };
 
+        // --- UPDATED: CLEAR FORM FUNCTION ---
         window.cancelEdit = () => {
             document.getElementById('editId').value = "";
             document.getElementById('qText').value = "";
+            document.getElementById('qImage').value = ""; // Clear question image
+            
+            // Clear MCQ Fields
+            document.getElementById('opA').value = "";
+            document.getElementById('opB').value = "";
+            document.getElementById('opC').value = "";
+            document.getElementById('opD').value = "";
+            document.getElementById('correctAns').value = "A";
+
+            // Clear Subjective Fields
+            document.getElementById('ansText').value = "";
+            document.getElementById('ansImage').value = ""; // Clear answer image
+
+            // Reset Dropdowns
             document.getElementById('qExam').value = "";
-            document.getElementById('qSubject').innerHTML = "";
+            document.getElementById('qSubject').innerHTML = '<option value="" disabled selected>-- Select Exam First --</option>';
+            
             document.getElementById('saveBtn').innerText = "Submit Question";
             document.getElementById('cancelBtn').classList.add('hidden');
         };
