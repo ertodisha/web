@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 7 Science Chapters | ERT Odisha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ert-blue: #1a4d94;
+            --ert-red: #ff4b2b;
+            --bg-light: #f0f4f8;
+            --blue-teal: linear-gradient(135deg, #00c6ff, #0072ff);
+            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- STICKY HEADER --- */
+        nav {
+            background: #fff;
+            padding: 0 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 75px;
+        }
+
+        .logo-nav { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ert-blue); font-weight: 700; }
+        .logo-nav img { height: 45px; }
+
+        /* --- HERO SECTION --- */
+        .chapter-hero { padding: 40px 8%; text-align: center; }
+        .hero-card {
+            background: white;
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .subject-badge {
+            background: var(--blue-teal);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 15px;
+            font-weight: 700;
+        }
+
+        /* --- CHAPTER GRID --- */
+        .chapter-section { padding: 0 8% 80px; text-align: center; }
+        .chapter-section h2 { font-size: 1.6rem; color: var(--ert-blue); margin-bottom: 40px; font-weight: 700; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        .chapter-card {
+            background: white;
+            padding: 25px;
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+            text-align: left;
+        }
+
+        .chapter-card:hover { transform: translateX(10px); background: #fdfdfd; border-color: #ddd; }
+        
+        .chapter-num {
+            min-width: 50px; height: 50px;
+            background: var(--red-pink);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .chapter-info h3 { font-size: 1rem; color: var(--ert-blue); font-weight: 600; margin-bottom: 2px; }
+        .chapter-info p { font-size: 0.8rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: white; padding: 40px 8%;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            .chapter-card:hover { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo-nav">
+            <img src="images/logo.png" alt="ERT Logo"> 
+            <h1>ERT Odisha</h1>
+        </a>
+        <a href="class7.html" style="text-decoration:none; color:var(--ert-blue); font-weight:600;">⬅ Back to Subjects</a>
+    </nav>
+
+    <div class="chapter-hero">
+        <div class="hero-card">
+            <div class="subject-badge">Science</div>
+            <h1 style="color: var(--ert-blue); font-size: 1.5rem;">ସପ୍ତମ ଶ୍ରେଣୀ ବିଜ୍ଞାନ</h1>
+        </div>
+    </div>
+
+    <section class="chapter-section">
+        <h2>Select Chapter</h2>
+        <div class="grid">
+            <a href="chapter1.html" class="chapter-card">
+                <div class="chapter-num">1</div>
+                <div class="chapter-info">
+                    <p>Chapter 01</p>
+                    <h3>ଉଦ୍ଭିଦରେ ପୋଷଣ</h3>
+                </div>
+            </a>
+            
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">2</div>
+                <div class="chapter-info">
+                    <p>Chapter 02</p>
+                    <h3>ପ୍ରାଣୀମାନଙ୍କର ପୋଷଣ</h3>
+                </div>
+            </a>
+
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">3</div>
+                <div class="chapter-info">
+                    <p>Chapter 03</p>
+                    <h3>ତନ୍ତୁରୁ ବସ୍ତ୍ର</h3>
+                </div>
+            </a>
+
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">4</div>
+                <div class="chapter-info">
+                    <p>Chapter 04</p>
+                    <h3>ତାପ</h3>
+                </div>
+            </a>
+
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">5</div>
+                <div class="chapter-info">
+                    <p>Chapter 05</p>
+                    <h3>ଅମ୍ଳ, କ୍ଷାରକ ଓ ଲବଣ</h3>
+                </div>
+            </a>
+
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">6</div>
+                <div class="chapter-info">
+                    <p>Chapter 06</p>
+                    <h3>ଭୌତିକ ଓ ରାସାୟନିକ ପରିବର୍ତ୍ତନ</h3>
+                </div>
+            </a>
+
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">7</div>
+                <div class="chapter-info">
+                    <p>Chapter 07</p>
+                    <h3>ପାଣିପାଗ, ଜଳବାୟୁ ଓ ଉପଯୋଜନ</h3>
+                </div>
+            </a>
+
+            <a href="coming-soon.html" class="chapter-card">
+                <div class="chapter-num">8</div>
+                <div class="chapter-info">
+                    <p>Chapter 08</p>
+                    <h3>ପବନ, ଝଡ଼ ଓ ବାତ୍ୟା</h3>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 ERT Odisha | Education for All | Built with ❤️ for Students
+    </footer>
+
+</body>
+</html>
