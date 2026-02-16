@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 7 Resources | ERT Odisha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --ert-blue: #1a4d94;
+            --ert-red: #ff4b2b;
+            --bg-light: #f0f4f8;
+            --blue-teal: linear-gradient(135deg, #00c6ff, #0072ff);
+            --red-pink: linear-gradient(135deg, #ff416c, #ff4b2b);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- STICKY HEADER --- */
+        nav {
+            background: #fff;
+            padding: 0 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 75px;
+        }
+
+        .logo-nav { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ert-blue); font-weight: 700; }
+        .logo-nav img { height: 45px; }
+        .logo-nav h1 { font-size: 1.4rem; margin: 0; }
+
+        /* --- HERO SECTION --- */
+        .class-hero {
+            padding: 40px 8%;
+            text-align: center;
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 40px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border: 1px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .class-badge {
+            background: var(--red-pink);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* --- SUBJECT GRID --- */
+        .subject-section { padding: 0 8% 80px; text-align: center; }
+        .subject-section h2 { font-size: 1.8rem; color: var(--ert-blue); margin-bottom: 40px; font-weight: 700; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; }
+        
+        .subject-card {
+            background: white;
+            padding: 40px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+            border: 1px solid #f0f0f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.08); }
+        
+        /* Bottom highlight bar */
+        .subject-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: var(--blue-teal);
+        }
+
+        .subject-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .subject-card h3 { font-size: 1.2rem; color: var(--ert-blue); font-weight: 700; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: white; padding: 40px 8%;
+            border-top: 1px solid #eee;
+            text-align: center;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            .hero-card { flex-direction: column; padding: 30px 20px; border-radius: 25px; }
+            .grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="logo-nav">
+            <img src="images/logo.png" alt="ERT Logo"> 
+            <h1>ERT Odisha</h1>
+        </a>
+        <a href="index.html" style="text-decoration:none; color:var(--ert-blue); font-weight:600;">⬅ Back to Classes</a>
+    </nav>
+
+    <div class="class-hero">
+        <div class="hero-card">
+            <div class="class-badge">7</div>
+            <h1 style="color: var(--ert-blue);">ସପ୍ତମ ଶ୍ରେଣୀ (Class 7)</h1>
+        </div>
+    </div>
+
+    <section class="subject-section">
+        <h2>Select Your Subject</h2>
+        <div class="grid">
+            <a href="coming-soon.html" class="subject-card">
+                <div class="subject-icon">📖</div>
+                <h3>ସାହିତ୍ୟ (Odia)</h3>
+            </a>
+            <a href="coming-soon.html" class="subject-card">
+                <div class="subject-icon">🔤</div>
+                <h3>English</h3>
+            </a>
+            <a href="coming-soon.html" class="subject-card">
+                <div class="subject-icon">📐</div>
+                <h3>ଗଣିତ (Math)</h3>
+            </a>
+            <a href="coming-soon.html" class="subject-card">
+                <div class="subject-icon">🔬</div>
+                <h3>ବିଜ୍ଞାନ (Science)</h3>
+            </a>
+            <a href="coming-soon.html" class="subject-card">
+                <div class="subject-icon">🌍</div>
+                <h3>ଭୂଗୋଳ (Geography)</h3>
+            </a>
+            <a href="coming-soon.html" class="subject-card">
+                <div class="subject-icon">📜</div>
+                <h3>ଇତିହାସ (History)</h3>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 ERT Odisha | Education for All | Built with ❤️ for Students
+    </footer>
+
+</body>
+</html>
