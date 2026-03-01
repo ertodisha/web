@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ଆଲୋକ | Empowered by SOVA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+    :root {
+        --bg-color: #F4F7FE; /* Soft, friendly background color */
+        --text-dark: #1E293B;
+        --card-shadow: 0 8px 0 rgba(0, 0, 0, 0.1); /* Chunky 3D shadow typical of kids apps */
+    }
+
+    body {
+        font-family: 'Outfit', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        /* Playful dotted background pattern */
+        background-image: radial-gradient(#D6E0F0 2px, transparent 2px);
+        background-size: 30px 30px;
+        color: var(--text-dark);
+        overflow-x: hidden;
+    }
+
+    /* --- Prominent, Playful Header --- */
+    header {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        height: 90px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 2px solid rgba(0,0,0,0.05);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header-title {
+        font-family: 'Fredoka', sans-serif;
+        font-size: 38px;
+        font-weight: 600;
+        color: #FF5A5F; 
+        letter-spacing: 1px;
+        text-shadow: 2px 2px 0px #FFD166; 
+        margin-bottom: -4px;
+    }
+
+    .header-subtitle {
+        font-size: 13px;
+        font-weight: 700;
+        color: #007AFF;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        opacity: 0.8;
+    }
+
+    /* --- Modern Infinite Logo & Text Slider --- */
+    .slider-area {
+        margin-top: 90px; /* Sits exactly below the fixed header */
+        background: #ffffff;
+        padding: 15px 0;
+        overflow: hidden;
+        white-space: nowrap;
+        border-bottom: 3px dashed #FFD166;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.04);
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Fading edges for the slider */
+    .slider-area::before,
+    .slider-area::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        width: 60px;
+        height: 100%;
+        z-index: 2;
+    }
+    .slider-area::before {
+        left: 0;
+        background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+    }
+    .slider-area::after {
+        right: 0;
+        background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+    }
+
+    .slider-track {
+        display: inline-flex;
+        align-items: center;
+        gap: 30px; /* Adjusted gap to accommodate longer text */
+        /* Animation duration determines speed */
+        animation: scroll-left 35s linear infinite; /* Slowed down slightly for reading */
+        padding-left: 30px;
+    }
+
+    .slider-track img {
+        height: 55px;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 6px rgba(0,0,0,0.08));
+    }
+
+    .slider-text {
+        font-size: 20px;
+        font-weight: 700;
+        color: #007AFF; /* Matches the subtitle blue */
+        letter-spacing: 0.5px;
+        text-transform: capitalize;
+    }
+
+    @keyframes scroll-left {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* Scrolls exactly half its duplicated width */
+    }
+
+    /* --- Full Grid Layout --- */
+    .container {
+        display: grid;
+        gap: 25px;
+        padding: 50px 5% 60px 5%;
+        max-width: 1200px;
+        margin: 0 auto;
+        grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    }
+
+    /* --- Fun Interactive Card Styling --- */
+    .tile {
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 35px 15px;
+        text-decoration: none;
+        color: white;
+        font-size: 22px;
+        font-weight: 700;
+        box-shadow: var(--card-shadow);
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+        border: 2px solid rgba(255,255,255,0.3);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .tile::after {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 50%; height: 100%;
+        background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+        transform: skewX(-25deg);
+        transition: 0.5s;
+    }
+
+    .tile:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 16px 0 rgba(0,0,0,0.15); 
+    }
+
+    .tile:hover::after {
+        left: 200%; 
+    }
+
+    .tile:active {
+        transform: translateY(2px);
+        box-shadow: 0 4px 0 rgba(0,0,0,0.1); 
+    }
+
+    .tile img {
+        width: 75px;
+        height: 75px;
+        margin-bottom: 18px;
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25)); 
+        transition: transform 0.3s ease;
+    }
+
+    .tile:hover img {
+        transform: scale(1.1) rotate(5deg); 
+    }
+
+    /* --- Vibrant Classroom Gradient Palette --- */
+    .grad-1 { background: linear-gradient(135deg, #FF9A9E 0%, #FECFEF 100%); color: #D81B60; }
+    .grad-2 { background: linear-gradient(135deg, #4FACFE 0%, #00F2FE 100%); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+    .grad-3 { background: linear-gradient(135deg, #43E97B 0%, #38F9D7 100%); color: #00695C; }
+    .grad-4 { background: linear-gradient(135deg, #FEE140 0%, #FA709A 100%); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+    .grad-5 { background: linear-gradient(135deg, #A18CD1 0%, #FBC2EB 100%); color: #4A148C; }
+    .grad-6 { background: linear-gradient(135deg, #FF0844 0%, #FFB199 100%); text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+
+    .grad-1, .grad-3, .grad-5 { text-shadow: none; }
+
+    @media (max-width: 600px) {
+        .container { 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+            padding-top: 30px;
+            padding-bottom: 40px;
+        }
+        .header-title { font-size: 32px; }
+        .slider-track img { height: 40px; }
+        .slider-text { font-size: 16px; }
+        .tile { padding: 25px 10px; font-size: 18px; border-radius: 20px;}
+        .tile img { width: 60px; height: 60px; margin-bottom: 12px;}
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-title">ଆଲୋକ</div>
+    <div class="header-subtitle">Empowered by SOVA & eRT-Odisha</div>
+</header>
+
+<div class="slider-area">
+    <div class="slider-track">
+        <img src="sova.png" alt="SOVA Logo">
+        <span class="slider-text">Empowered by South Orissa Voluntary Action</span>
+        <img src="ert.png" alt="e-RT Logo">
+        <span class="slider-text">e-Resource Team</span>
+        
+        <img src="sova.png" alt="SOVA Logo">
+        <span class="slider-text">Empowered by South Orissa Voluntary Action</span>
+        <img src="ert.png" alt="e-RT Logo">
+        <span class="slider-text">e-Resource Team</span>
+    </div>
+</div>
+
+<div class="container">
+    <a href="flnodisha/index.html" class="tile grad-1">
+        <img src="fln_icon.png" alt="FLN"> FLN
+    </a>
+    <a href="alphabet/alphabet.html" class="tile grad-2">
+        <img src="alphabet_icon.webp" alt="Alphabet"> ଅକ୍ଷର
+    </a>
+    <a href="number/number.html" class="tile grad-3">
+        <img src="number_icon.webp" alt="Number"> ସଂଖ୍ୟା
+    </a>
+    <a href="animal/animal.html" class="tile grad-4">
+        <img src="fox_icon.webp" alt="Animal"> ପଶୁ
+    </a>
+    <a href="bird/bird.html" class="tile grad-5">
+        <img src="rooster_icon.webp" alt="Bird"> ପକ୍ଷୀ
+    </a>
+    <a href="flower/flower.html" class="tile grad-6">
+        <img src="flower_icon.webp" alt="Flower"> ଫୁଲ
+    </a>
+    <a href="fruit/fruit.html" class="tile grad-1">
+        <img src="apple_icon.webp" alt="Fruit"> ଫଳ
+    </a>
+    <a href="shape/shape.html" class="tile grad-5">
+        <img src="shape_icon.webp" alt="Shape"> ଆକାର
+    </a>
+    <a href="color/color.html" class="tile grad-6">
+        <img src="color_icon.webp" alt="Color"> ରଙ୍ଗ
+    </a>
+    <a href="draw/draw.html" class="tile grad-1">
+        <img src="paint_icon.webp" alt="Draw"> ଚିତ୍ର
+    </a>
+    <a href="math/math.html" class="tile grad-3">
+        <img src="math_icon.webp" alt="Math"> ଗଣିତ
+    </a>
+    <a href="bhasa/bhasa.html" class="tile grad-4">
+        <img src="bhasa_icon.webp" alt="Language"> ଭାଷା
+    </a>
+    <a href="day/day.html" class="tile grad-5">
+        <img src="day_icon.webp" alt="Day"> ଦିନ
+    </a>
+    <a href="season/odiaseason.html" class="tile grad-2">
+        <img src="season_icon.webp" alt="Season"> ଋତୁ
+    </a>
+</div>
+
+</body>
+</html>
